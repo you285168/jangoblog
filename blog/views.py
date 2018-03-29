@@ -35,7 +35,7 @@ def _get_paginator(post_list, curpost):
 def _markdown_post(post):
     md = markdown.Markdown(extensions=[
         'markdown.extensions.extra',
-        'markdown.extensions.codehilite',
+        #'markdown.extensions.codehilite',
         TocExtension(slugify=slugify),
     ])
     post.body = md.convert(post.body)
