@@ -40,5 +40,5 @@ Release/
 .idea/*
 */__pycache__/*
 whoosh_index/*
-
+*/migrations/*
 
