@@ -75,14 +75,8 @@ def category(request):
     post_list = None
     closeflag = request.GET.get('closeflag') or 0
 
-    #设置列表关闭状态
-    if int(closeflag) == 1:
-        closeflag = 0
-    else:
-        closeflag = 1
-
     #取分类下的文章列表
-    if catepk:
+    if catepk and int(closeflag) == 0:
         cate = get_object_or_404(Category, pk=catepk)
         post_list = Post.objects.filter(category=cate)
 
@@ -96,6 +90,12 @@ def category(request):
         _markdown_post(curpost)
 
     prepost, nextpost = _get_paginator(post_list, curpost)
+
+    # 设置列表关闭状态
+    if int(closeflag) == 1:
+        closeflag = 0
+    else:
+        closeflag = 1
 
     return render(request, 'blog/detail.html', context={
         'curpost': curpost,
