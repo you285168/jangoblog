@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+
+{% block main %}
+<section class="flex-center" />
+<div class="container-wider" />
+<div class="flex-left flex-wrap " style="margin-top: 60px" />
+<form id="editorForm" method="post" target="fileFrame" action="#">
+<!--页面主体框-->
+<div class="BNE_content BNE_editor" id="BNE_editor">
+  <div class="editor_tit">
+    <span style="font-size: 34px; line-height: 50px; position: absolute; color: rgb(204, 204, 204); margin-left: 0px; margin-top: 0px; z-index: -1; visibility: visible;">请输入标题</span><textarea name="blog_title" id="article_title" type="text" autocomplete="off" class="ipt BNE_txtA" old-value="" style="resize: none; overflow-y: hidden; height: 50px; visibility: visible;"></textarea>
+  </div>
+  <div class="editor_txt" style="">
+    <span style="font-size: 17px; line-height: 28px; position: absolute; color: rgb(204, 204, 204); margin-left: 0px; margin-top: 0px; z-index: -1; visibility: visible;">请输入正文</span><div class="tar BNE_txtA" id="editor" contenteditable="true"><p><br></p></div>
+  </div>
+  <!--增加隐藏的textarea 为了提交-->
+  <textarea name="blog_body" id="SinaEditorTextarea" class="textarea" style="border:0px none;display:none;"></textarea>
+  <!--编辑器的高度是根据内容的高度进行增加-->
+<div><div class="BNE_insert" id="article_add_list_view" style="display:none;"><div class="inse_tit"><a href="javascript:;" class="lk_a del_btn" id="article_associate_delete_btn"><span class="txt">删除</span><i class="icon i9_close"></i></a><a href="javascript:;" class="lk_a modify_btn" id="article_associate_modify_btn"><span class="txt">编辑</span><i class="icon i8_edit"></i></a><span class="tit">更多博文</span></div><!--更多博文_文字--><ul class="BNE_wmore" id="operate_list_view_ul"></ul><!--/更多博文_文字--><!--更多博文_图片--><ul class="BNE_pmore" id="operate_img_list_view"></ul><!--/更多博文_图片--></div></div></div>
+
+
+<div class="BNE_operation">
+	<div class="release_btn">
+      <a href="javascript:;" class="BNE_btn_commit" id="articlePostBtn">发博文</a>
+    </div>
+  </div>
+</div>
+</form>
+
+
+
+{% endblock main %}

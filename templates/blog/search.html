@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load new_highlight %}
+
+{% block main %}
+<section class="flex-center" />
+<div class="container-wider" />
+<div class="flex-left flex-wrap " style="margin-top: 60px" />
+<main class="unit-3-4 unit-1-on-mobile">
+    <section class="bg-white list-group post-items top-gap">
+        {% if query %}
+            {% for result in page.object_list %}
+            <article class="flex-left list-group-item post-item px-7">
+                <div class="unit unit-1-on-mobile">
+                    <h5 class="top-gap-0 post-item-title"><a href="{{ result.object.get_absolute_url }}">{% new_highlight result.object.title with query start_head True %}</a></h5>
+                    <div class="text-small text-muted  post-item-excerpt mt-2">{% new_highlight result.object.body with query filter_mark_down True %}</div>
+                </div>
+            </article>
+            {% empty %}
+                <div class="list-group-item no-post text-center">没有搜索到你想要的结果！</div>
+            {% endfor %}
+            {% if page.has_previous or page.has_next %}
+                <div class="list-group-item">
+                    {% if page.has_previous %}
+                        <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">&laquo; 上一页</a>
+                    {% endif %}
+                    {% if page.has_next %}
+                        <a href="?q={{ query }}&amp;page={{ page.next_page_number }}">&raquo;下一页</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="list-group-item no-post text-center">请输入搜索关键词！</div>
+        {% endif %}
+    </section>
+</main>
+
+{% endblock main %}

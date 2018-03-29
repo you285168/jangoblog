@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+
+{% block main %}
+<section class="flex-center" />
+<div class="container-wider" />
+<div class="flex-left flex-wrap " style="margin-top: 60px" />
+
+<aside class="unit-1-4 unit-1-on-mobile top-gap">
+    <div class="scroll-view bg-white card toc-sidebar" style="height: 100%">
+        <div class="card-header">目录</div>
+        <div class="card-body">
+            <ul>
+                {% get_categories as category_list %}
+                {% for category in category_list %}
+                <li>
+                    {% if curpost and curpost.category_id == category.pk %}
+                        <h6 class="top-gap-0"><a href="{% url 'blog:category' %}?closeflag={{closeflag}}&postpk={{curpost.pk}}&catepk={{category.pk}}">{{ category.name }}</a></h6>
+                        <ul>
+                            {% for post in post_list %}
+                            <li>
+                                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                                {% if post.pk == curpost.pk %}
+                                <div class="toc">
+                                    {{ curpost.toc|safe }}
+                                </div>
+                                {% endif %}
+                            </li>
+                            {% empty %}
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <h6 class="top-gap-0"><a href="{% url 'blog:category' %}?catepk={{ category.pk }} ">{{ category.name }}</a></h6>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</aside>
+<div class="unit-3-4 unit-1-on-mobile top-gap" />
+<div class="bg-white card post-card px-7 py-5" />
+<article class="post">
+    {% if curpost %}
+        <h1 class="top-gap-0">{{ curpost.title }}</h1>
+        {{ curpost.body|safe }}
+    {% else %}
+        <h1>暂未发表文章！</h1>
+    {% endif %}
+</article>
+<div class="top-gap clearfix">
+    {% if prepost %}
+        <a href="{{ prepost.get_absolute_url }}">
+            <i class="fa fa-angle-double-left" aria-hidden="true"></i> {{ prepost.title }}
+        </a>
+    {% endif %}
+
+    {% if nextpost %}
+        <a class="float-right" href="{{ nextpost.get_absolute_url }}">{{ nextpost.title }}
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        </a>
+    {% endif %}
+</div>
+{% endblock main %}

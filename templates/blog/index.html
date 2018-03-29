@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+
+
+{% block main %}
+<section class="flex-center" />
+<div class="container-wider" />
+<div class="flex-left flex-wrap " style="margin-top: 60px" />
+
+<aside class="unit-1-4 unit-1-on-mobile top-gap">
+    <div class="scroll-view bg-white card toc-sidebar" style="height: 100%">
+        <div class="card-header">目录</div>
+        <div class="card-body">
+            <ul>
+                {% get_categories as category_list %}
+                {% for category in category_list %}
+                <li>
+                    <h6 class="top-gap-0"><a href="{% url 'blog:category' %}?catepk={{ category.pk }}">{{ category.name }}</a></h6>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</aside>
+<div class="unit-3-4 unit-1-on-mobile top-gap" />
+<div class="bg-white card post-card px-7 py-5" />
+<article class="post">
+    <h1>welcome</h1>
+</article>
+{% endblock main %}

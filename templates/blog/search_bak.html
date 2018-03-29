@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load new_highlight %}
+
+{% block main %}
+<section class="flex-center" />
+<div class="container-wider" />
+<div class="flex-left flex-wrap " style="margin-top: 60px" />
+<aside class="unit-1-4 unit-1-on-mobile top-gap">
+    <div class="scroll-view bg-white card toc-sidebar" style="height: 100%">
+        <div class="card-header">目录</div>
+        <div class="card-body">
+        {% if query %}
+            <ul>
+            {% for result in page.object_list %}
+                <li>
+                    <a href="?q={{ q }}&pk={{ result.object.pk }}">{% new_highlight result.object.title with query start_head True %}</a>
+                    {% if curpost and result.object.pk == curpost.pk %}
+                    <div class="toc">
+                        {{ curpost.toc|safe }}
+                    </div>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            请输入搜索关键词
+        {% endif %}
+        </div>
+    </div>
+</aside>
+<div class="unit-3-4 unit-1-on-mobile top-gap" />
+<div class="bg-white card post-card px-7 py-5" />
+<article class="post">
+    {% if curpost %}
+        <h1 class="top-gap-0">{%  new_highlight curpost.title with query start_head True %}</h1>
+        {{ curpost.body|safe }}
+    {% else %}
+        <h1>没有找到相关文章！</h1>
+    {% endif %}
+</article>
+{% endblock main %}
